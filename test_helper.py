@@ -1,13 +1,23 @@
 import hashlib
 
+class PublicTestFailure(Exception):
+  pass
+class PrivateTestFailure(Exception):
+  pass
+
 class PublicTest(object):
   passed = 0
   numTests = 0
   failFast = False
+  private = False
 
   @classmethod
   def setFailFast(cls):
     cls.failFast = True
+
+  @classmethod
+  def setPrivateMode(cls):
+    cls.private = True
 
   @classmethod
   def assertTrue(cls, result, msg=""):
@@ -18,7 +28,10 @@ class PublicTest(object):
     else:
       print "1 test failed. " + msg
       if cls.failFast:
-        raise Exception("Public Test failed. " + msg)
+        if cls.private:
+          raise PrivateTestFailure(msg)
+        else:
+          raise PublicTestFailure(msg)
 
   @classmethod
   def assertEquals(cls, var, val, msg=""):
