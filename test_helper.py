@@ -5,7 +5,7 @@ class PublicTestFailure(Exception):
 class PrivateTestFailure(Exception):
   pass
 
-class PublicTest(object):
+class Test(object):
   passed = 0
   numTests = 0
   failFast = False

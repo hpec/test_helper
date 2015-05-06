@@ -1,1 +1,1 @@
-from test_helper import PublicTest
+from test_helper import Test
