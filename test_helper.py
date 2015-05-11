@@ -1,6 +1,6 @@
 import hashlib
 
-class PublicTestFailure(Exception):
+class TestFailure(Exception):
   pass
 class PrivateTestFailure(Exception):
   pass
@@ -31,15 +31,15 @@ class Test(object):
         if cls.private:
           raise PrivateTestFailure(msg)
         else:
-          raise PublicTestFailure(msg)
+          raise TestFailure(msg)
 
   @classmethod
   def assertEquals(cls, var, val, msg=""):
     cls.assertTrue(var == val, msg)
 
   @classmethod
-  def assertEqualsHashed(cls, var, hashed_val):
-    cls.assertEquals(cls._hash(var), hashed_val)
+  def assertEqualsHashed(cls, var, hashed_val, msg=""):
+    cls.assertEquals(cls._hash(var), hashed_val, msg)
 
   @classmethod
   def printStats(cls):
